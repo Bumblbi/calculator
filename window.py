@@ -19,10 +19,20 @@ class MainApp(App):
             horizontal_layout = BoxLayout()
             for lable in row:
                 button = Button(text=lable, pos_hint={"center_x": 0.5, "center_y": 0.5})
+                button.bind(on_press=self.on_button_press)
                 horizontal_layout.add_widget(button)
             main_layout.add_widget(horizontal_layout)
+        
+        equally_button = Button(text="=", pos_hint={"center_x": 0.5, "center_y": 0.5})
+        main_layout.add_widget(equally_button)
 
         return main_layout
+    
+    def on_button_press(self, instance):
+        if instance.text == "C":
+            self.solution.text = ""
+        else:
+            self.solution.text += instance.text
 
 if __name__ == '__main__':
     MainApp().run()
