@@ -15,7 +15,11 @@ class MainApp(App):
             ["1", "2", "3", "-"],
             [".", "0", "C", "+"]
         ]
-
+        
+        del_button = Button(text="<--", pos_hint={"center_x": 0.5, "center_y": 0.3})
+        main_layout.add_widget(del_button)
+        del_button.bind(on_press=self.on_button_press)
+    
         for row in buttons:
             horizontal_layout = BoxLayout()
             for lable in row:
@@ -27,14 +31,17 @@ class MainApp(App):
         equally_button = Button(text="=", pos_hint={"center_x": 0.5, "center_y": 0.5})
         equally_button.bind(on_press=self.on_solution)
         main_layout.add_widget(equally_button)
-
+        
         return main_layout
-    
+            
     def on_button_press(self, instance):
         if instance.text == "C":
             self.solution.text = ""
         else:
-            self.solution.text += instance.text
+            if instance.text == "<--":
+                self.solution.text = self.solution.text[:-1]
+            else:
+                self.solution.text += instance.text
     
     def on_solution(self, instance):
         if self.solution.text:
